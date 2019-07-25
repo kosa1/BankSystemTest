@@ -8,8 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
+
 import org.apache.commons.io.FileUtils;
 
 public class Utilities {
@@ -17,9 +17,9 @@ public class Utilities {
         Log.info("Random number generation function launched");
         // random number from 1-999 range
         Random r = new Random();
-        Integer number =  r.nextInt((999 - 1) + 1) + 1;
+        int number =  r.nextInt((999 - 1) + 1) + 1;
         //Log.info("random number(added to email): " + number.toString());
-        return number.toString();
+        return Integer.toString(number);
     }
 
     public static void takeScreenshot(WebDriver driver) {
@@ -35,5 +35,25 @@ public class Utilities {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String drawValueFromExcel(String sheetName, String pathFile) throws Exception {
+        try {
+            ExcelUtilis.setExcelFile(pathFile,sheetName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        List<String> valueList = new ArrayList<>();
+        int lastRow = ExcelUtilis.ExcelWSheet.getLastRowNum();
+        System.out.println("last row no: "+ lastRow);
+        for(int i=1; i<=lastRow; i++){
+            valueList.add(ExcelUtilis.getCellData(i,0));    // adding current value to the list
+            System.out.println(ExcelUtilis.getCellData(i,0));
+        }
+        //System.out.println("last row: " + lastRow);
+        // drawing value from the valueList
+        Random r = new Random();
+        int randomNumber = r.nextInt(lastRow); // [0...6]
+        return valueList.get(randomNumber);
     }
 }

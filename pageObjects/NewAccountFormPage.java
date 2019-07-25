@@ -2,6 +2,7 @@ package pageObjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class NewAccountFormPage extends PageObject {
@@ -14,7 +15,7 @@ public class NewAccountFormPage extends PageObject {
         return account_id.getText();
     }
 
-    public NewAccountFormPage(WebDriver driver) {
+    public NewAccountFormPage(RemoteWebDriver driver) {
         super(driver);
     }
 }

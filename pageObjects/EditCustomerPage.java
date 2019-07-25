@@ -2,6 +2,7 @@ package pageObjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class EditCustomerPage extends PageObject {
@@ -16,7 +17,7 @@ public class EditCustomerPage extends PageObject {
     private WebElement res_btn;
 
 
-    public EditCustomerPage(WebDriver driver) {
+    public EditCustomerPage(RemoteWebDriver driver) {
         super(driver);
     }
 

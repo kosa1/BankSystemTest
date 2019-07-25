@@ -30,6 +30,7 @@ public class CreateNewCustomerTest extends TestBase {
                 .clickLoginButton();
         Assert.assertEquals("Guru99 Bank Manager HomePage", driver.getTitle());
         Log.info("Login successful!!!\n");
+
     }
 
     @Test(priority = 1)

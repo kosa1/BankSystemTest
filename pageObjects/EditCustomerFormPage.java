@@ -2,6 +2,7 @@ package pageObjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class EditCustomerFormPage extends PageObject {
@@ -16,13 +17,13 @@ public class EditCustomerFormPage extends PageObject {
     private WebElement submit;
 
     @FindBy(className = "heading3")
-    WebElement assert_string;
+    private WebElement assert_string;
 
-    public EditCustomerFormPage(WebDriver driver) {
+    public EditCustomerFormPage(RemoteWebDriver driver) {
         super(driver);
     }
 
-    public static EditCustomerFormPage using(WebDriver driver){
+    public static EditCustomerFormPage using(RemoteWebDriver driver){
         return new EditCustomerFormPage(driver);
     }
 

@@ -2,6 +2,7 @@ package pageObjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 import utilities.Log;
@@ -18,7 +19,10 @@ public class ManagerPage extends PageObject {
     @FindBy(linkText = "New Account")
     private WebElement new_account_link;
 
-    public ManagerPage(WebDriver driver){
+    @FindBy(linkText = "Delete Account")
+    private WebElement delete_account_link;
+
+    public ManagerPage(RemoteWebDriver driver){
         super(driver);
     }
 
@@ -40,5 +44,10 @@ public class ManagerPage extends PageObject {
     public void clickOnNewAccountLink(){
         Log.info("Clicking on New Account Link from the panel on the left");
         this.new_account_link.click();
+    }
+
+    public void clickOnDeleteAccountLink(){
+        Log.info("Clicking on Delete Account Link from the panel on the left");
+        this.delete_account_link.click();
     }
 }

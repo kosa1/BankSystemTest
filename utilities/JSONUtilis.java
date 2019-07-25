@@ -72,11 +72,7 @@ public class JSONUtilis {
             // returning Map Object
             return list.get(0);
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
         return null;

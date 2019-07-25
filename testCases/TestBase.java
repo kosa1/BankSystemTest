@@ -19,6 +19,7 @@ public class TestBase {
     public void setUp(@Optional("chrome") String browser, Method method) throws MalformedURLException {
         Log.startTestCase();
         driver = Browser.getDriver(browser);
+        System.out.println("browser name: " + driver.getCapabilities().getBrowserName());
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         Log.info("Implicit wait applied on the driver for 10 seconds");
         driver.manage().window().maximize();
@@ -28,6 +29,7 @@ public class TestBase {
     public void beforeMethod(ITestResult result) {
         Log.nameOfTest(result.getMethod().getMethodName());
     }
+
     @AfterClass
     public void tearDown(){
        // Log.nameOfTest(method.getName());

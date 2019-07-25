@@ -27,7 +27,7 @@ public class Browser {
             return DesiredCapabilities.chrome();
         }
         else if(browserType.equals("IE")){
-            System.out.println("Opening IE driver");
+            //System.out.println("Opening IE driver");
             Log.info("Name of browser: " + browserType);
             return DesiredCapabilities.internetExplorer();
         }

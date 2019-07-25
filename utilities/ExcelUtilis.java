@@ -1,6 +1,7 @@
 package utilities;
 import java.io.*;
 
+import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -9,16 +10,28 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtilis {
 
-    private static XSSFSheet ExcelWSheet;
-    private static XSSFWorkbook ExcelWBook;
-    private static XSSFCell Cell;
-    private static XSSFRow Row;
+    public static XSSFSheet ExcelWSheet;
+    public static XSSFWorkbook ExcelWBook;
+    public static XSSFCell Cell;
+    public static FileInputStream ExcelFile;
 
+    public static void removeRow(XSSFSheet sheet, int rowIndex) {
+        int lastRowNum=sheet.getLastRowNum();
+        if(rowIndex>=0&&rowIndex<lastRowNum){
+            sheet.shiftRows(rowIndex+1,lastRowNum, -1);
+        }
+        if(rowIndex==lastRowNum){
+            XSSFRow removingRow=sheet.getRow(rowIndex);
+            if(removingRow!=null){
+                sheet.removeRow(removingRow);
+            }
+        }
+    }
     public static void setExcelFile(String Path,String SheetName) throws Exception {
 
         try {
             // Open the Excel file
-            FileInputStream ExcelFile = new FileInputStream(Path);
+            ExcelFile = new FileInputStream(Path);
             // Access the required test data sheet
             ExcelWBook = new XSSFWorkbook(ExcelFile);
             ExcelWSheet = ExcelWBook.getSheet(SheetName);
@@ -31,9 +44,8 @@ public class ExcelUtilis {
     public static String getCellData(int RowNum, int ColNum) throws Exception{
         try{
             Cell = ExcelWSheet.getRow(RowNum).getCell(ColNum);
-            String CellData = Cell.getStringCellValue();
-           // System.out.println("wartosc: " + CellData + " typ komorki: " + Cell.getCellType());
-            return CellData;
+            // System.out.println("wartosc: " + CellData + " typ komorki: " + Cell.getCellType());
+            return Cell.getStringCellValue();
         }catch (Exception e){
             return"";
         }
@@ -48,14 +60,9 @@ public class ExcelUtilis {
         int rowNo = sheet.getLastRowNum();
         //Get the first row from the sheet
         Row row = sheet.createRow(++rowNo);
-        System.out.println("row no: " + rowNo);
-        if(row  == null){
-            System.out.println("jest null");
-        }
-        else {
-            System.out.println("nie jest null");
-        }
-        //assert row != null;
+      //  System.out.println("row no: " + rowNo);
+
+        assert row != null;
         Cell cell = row.createCell(0);
         cell.setCellType(CellType.STRING);
         cell.setCellValue(dataToWrite);
@@ -67,4 +74,67 @@ public class ExcelUtilis {
         workbook.write(outputStream);
         outputStream.close();
     }
+
+    public static void deleteRow(String value) throws Exception {
+        // looking for right value
+        int index=0;
+        for(int i=1; i<=ExcelWSheet.getLastRowNum();i++){
+            if(ExcelUtilis.getCellData(i,0).equals(value)){
+                //save index
+                index = i;
+                Log.info("index: "+index);
+            }
+        }
+        // deleting whole row
+        removeRow(ExcelWSheet, index);
+//        if(index!=0) {
+//            Row rowToDelete = ExcelWSheet.getRow(index);
+//            ExcelWSheet.removeRow(rowToDelete);
+//            Log.info("Correct value has been removed from excel file");
+//        }else {
+//            Log.info("Correct value to delete could not be found!");
+//        }
+        // close input stream
+       // ExcelFile.close();
+    }
+
+    public boolean deleteRow(String sheetName, String excelPath, int rowNo) throws IOException {
+
+        XSSFWorkbook workbook = null;
+        XSSFSheet sheet = null;
+
+        try {
+            FileInputStream file = new FileInputStream(new File(excelPath));
+            workbook = new XSSFWorkbook(file);
+            sheet = workbook.getSheet(sheetName);
+            if (sheet == null) {
+                return false;
+            }
+            int lastRowNum = sheet.getLastRowNum();
+            if (rowNo >= 0 && rowNo < lastRowNum) {
+               // sheet.shiftRows(rowNo + 1, lastRowNum, -1);
+                Row row = sheet.getRow(2);
+                sheet.removeRow(row);
+            }
+            if (rowNo == lastRowNum) {
+                XSSFRow removingRow = sheet.getRow(rowNo);
+                if (removingRow != null) {
+                    sheet.removeRow(removingRow);
+                }
+            }
+            file.close();
+            FileOutputStream outFile = new FileOutputStream(new File(excelPath));
+            workbook.write(outFile);
+            outFile.close();
+
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (workbook != null)
+                workbook.close();
+        }
+        return false;
+    }
+
 }

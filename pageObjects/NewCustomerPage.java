@@ -4,8 +4,14 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
+import utilities.Browser;
 import utilities.Log;
+
+import java.rmi.Remote;
 
 public class NewCustomerPage extends PageObject {
 
@@ -18,7 +24,7 @@ public class NewCustomerPage extends PageObject {
     @FindBy(xpath = "/html/body/table/tbody/tr/td/table/tbody/tr[5]/td[2]/input[2]")
     private WebElement female;
 
-    @FindBy(name = "dob")
+    @FindBy(xpath = "//*[@id=\"dob\"]")
     private WebElement dob;
 
     @FindBy(name = "addr")
@@ -49,7 +55,7 @@ public class NewCustomerPage extends PageObject {
     private WebElement reset;
 
 
-    public NewCustomerPage(WebDriver driver){
+    public NewCustomerPage(RemoteWebDriver driver){
         super(driver);
     }
 
@@ -73,25 +79,22 @@ public class NewCustomerPage extends PageObject {
        String month=date.substring(4,6);
        String day=date.substring(6,8);
 
+       if(driver.getCapabilities().getBrowserName().equals("chrome")){
+        // chrome code
+           dob.sendKeys(day);
+           dob.sendKeys(month);
+           dob.sendKeys(year);
 
-       dob.sendKeys(day);
-       dob.sendKeys(month);
-       dob.sendKeys(year);
+       }else if (driver.getCapabilities().getBrowserName().equals("firefox")) {
+           // firefox code
 
-       return this;
-    }
-    public NewCustomerPage setDateFireFox(String date){
-        Log.info("Setting Customer Date");
-        String year=date.substring(0,4);
-        String month=date.substring(4,6);
-        String day=date.substring(6,8);
+           dob.sendKeys(day);
+           dob.sendKeys(month);
+           dob.sendKeys(year);
 
-        dob.click();
-        dob.sendKeys(Keys.ARROW_UP);
-        dob.sendKeys(Keys.ARROW_UP);
-        dob.sendKeys(Keys.ARROW_UP);
-
+       }
         return this;
+
     }
     public NewCustomerPage setAddress(String address){
         Log.info("Setting Customer Address");

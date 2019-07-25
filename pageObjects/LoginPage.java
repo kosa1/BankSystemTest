@@ -2,6 +2,7 @@ package pageObjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import utilities.Log;
 
@@ -17,11 +18,11 @@ public class LoginPage extends PageObject {
     private WebElement loginButton;
 
 
-    public LoginPage(WebDriver driver) {
+    public LoginPage(RemoteWebDriver driver) {
         super(driver);
     }
 
-    public static LoginPage using(WebDriver driver){
+    public static LoginPage using(RemoteWebDriver driver){
         return new LoginPage(driver);
     }
 

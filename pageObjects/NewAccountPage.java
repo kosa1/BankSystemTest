@@ -2,6 +2,7 @@ package pageObjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import utilities.Log;
@@ -45,7 +46,7 @@ public class NewAccountPage extends PageObject {
         submit_button.click();
     }
 
-    public NewAccountPage(WebDriver driver) {
+    public NewAccountPage(RemoteWebDriver driver) {
         super(driver);
     }
 }

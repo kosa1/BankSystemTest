@@ -37,6 +37,8 @@ public class BrokenLinksTest extends TestBase {
         String url = "";
         HttpURLConnection huc = null;
         int responseCode = 200;
+        int counter_all = 0;
+        int counter_valid = 0;
 
         // getting all <a> tag elements
         List<WebElement> links = driver.findElements(By.tagName("a"));
@@ -44,6 +46,7 @@ public class BrokenLinksTest extends TestBase {
         Iterator<WebElement> iterator = links.iterator();      // iterator reads each element in the list
 
         while ((iterator.hasNext())){
+            counter_all++;
             url = iterator.next().getAttribute("href");
             Log.info("url address: " + url);
 
@@ -51,6 +54,7 @@ public class BrokenLinksTest extends TestBase {
                 Log.info("URL is not configured or is empty");
             }
             if(!url.startsWith(homePage)){
+                counter_valid++;
                 Log.info("URL belongs to different domain, skipping it");
                 continue;
             }
@@ -71,8 +75,8 @@ public class BrokenLinksTest extends TestBase {
                 }
                 else{
                     Log.info(url + " is a valid link");
+                    counter_valid++;
                 }
-
             }
             catch (MalformedURLException e){
                 e.printStackTrace();
@@ -80,6 +84,9 @@ public class BrokenLinksTest extends TestBase {
             catch (IOException e){
                 e.printStackTrace();
             }
+
         }
+        Assert.assertEquals(counter_all,counter_valid);
+        Log.info("----------------All links are valid!!!--------------------");
     }
 }

@@ -2,6 +2,9 @@ package testCases;
 
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
@@ -146,6 +149,12 @@ public class CreateNewCustomerTest extends TestBase {
             Log.error("Customer id can not be saved - check sheet's" +
                     " tile or localization");
         }
+
+        WebElement element = driver.findElement(By.xpath("//*[@id=\"customer\"]/tbody/tr[4]/td[1]"));
+        Actions builder = new Actions(driver);
+
+        Action action = builder.moveToElement(element).doubleClick().build();
+        action.perform();
 
     }
 }

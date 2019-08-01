@@ -16,6 +16,8 @@ public class TestBase {
     // 1
     // 2
     // 3
+    // 4
+    // 5
     RemoteWebDriver driver;
 
     @BeforeClass

@@ -27,6 +27,7 @@ public class EditCustomerTest extends TestBase {
     // new comment
     //
     // com
+    // 4
     @Test()
     public void login() {
         Log.info("login test method is starting...");

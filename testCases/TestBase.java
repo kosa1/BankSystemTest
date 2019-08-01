@@ -12,6 +12,8 @@ import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 public class TestBase {
+    // TestBase class that will extend all other classes
+    //
     RemoteWebDriver driver;
 
     @BeforeClass

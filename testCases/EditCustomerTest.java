@@ -24,7 +24,7 @@ public class EditCustomerTest extends TestBase {
                 {"Krzyzakow 33", "Wroclaw"}
         };
     }
-
+    // new comment
     @Test()
     public void login() {
         Log.info("login test method is starting...");

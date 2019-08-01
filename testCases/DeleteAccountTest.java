@@ -15,6 +15,7 @@ public class DeleteAccountTest extends TestBase {
     private ManagerPage manager_page;
 
     // new branch
+    //9
     @Test()
     public void login() {
         manager_page = LoginPage.using(driver)

@@ -14,7 +14,7 @@ import utilities.Utilities;
 public class DeleteAccountTest extends TestBase {
     private ManagerPage manager_page;
 
-
+    // new branch
     @Test()
     public void login() {
         manager_page = LoginPage.using(driver)

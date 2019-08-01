@@ -24,6 +24,7 @@ public class EditCustomerTest extends TestBase {
                 {"Krzyzakow 33", "Wroclaw"}
         };
     }
+    // new comment 1
     // new comment
     @Test()
     public void login() {

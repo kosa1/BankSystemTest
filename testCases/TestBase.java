@@ -13,7 +13,9 @@ import java.util.concurrent.TimeUnit;
 
 public class TestBase {
     // TestBase class that will extend all other classes
-    //
+    // 1
+    // 2
+    // 3
     RemoteWebDriver driver;
 
     @BeforeClass
